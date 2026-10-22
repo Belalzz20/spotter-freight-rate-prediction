@@ -99,7 +99,7 @@ def main():
         raise ValueError("Training data contains invalid/missing dates.")
     validate_inputs(train, validation, template, december)
 
-    # Chronological holdout: train before October; validate on October only.
+    # train before October - validate on October only
     train_mask = train["date"] < CUTOFF
     holdout_mask = (train["date"] >= CUTOFF) & (train["date"] < pd.Timestamp("2025-11-01"))
     fit_part, holdout = train.loc[train_mask].copy(), train.loc[holdout_mask].copy()
@@ -135,7 +135,7 @@ def main():
     pd.DataFrame({"load_id": holdout["load_id"].to_numpy(), "actual_rate": y_holdout,
                   "predicted_rate": holdout_pred}).to_csv(output_dir / "october_holdout_predictions.csv", index=False)
 
-    # Refit on all labeled development data using the iteration count selected above.
+    # Refit on all labeled development data 
     x_full, full_median_weight = add_features(train)
     final = CatBoostRegressor(
         iterations=best_iterations, depth=8, learning_rate=0.05,
@@ -151,7 +151,7 @@ def main():
         "seed": SEED, "iterations": best_iterations, "weight_median_full_training": full_median_weight,
     }, indent=2), encoding="utf-8")
 
-    # Predict validation rows and preserve the exact template order.
+    # Predict validation rows and preserve the exact template order
     x_validation, _ = add_features(validation, full_median_weight)
     validation_pred = np.maximum(np.expm1(final.predict(x_validation)), 1.0)
     prediction_map = dict(zip(validation["load_id"].astype(str), validation_pred))
@@ -166,7 +166,7 @@ def main():
     float_format="%.2f",
 )
 
-    # December source is treated as fixed input features; overwrite its old predicted_rate.
+    # December source is treated 
     x_december, _ = add_features(december, full_median_weight)
     december_pred = np.maximum(np.expm1(final.predict(x_december)), 1.0)
     december_out = december.copy()
