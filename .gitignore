@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+model_backup.cbm
+validation_predictions_backup.csv
+data/december_chart_inputs_original.csv
+
+.vscode/
+.idea/
