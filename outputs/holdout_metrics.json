@@ -1,0 +1,11 @@
+{
+  "MAE": 117.0123487718513,
+  "RMSE": 647.1389852163485,
+  "MAPE_percent": 5.674998746649262,
+  "R2": 0.8207611624496323,
+  "selected_iterations": 466,
+  "training_rows": 43147,
+  "holdout_rows": 4853,
+  "holdout_start": "2025-10-01",
+  "holdout_end": "2025-10-31"
+}

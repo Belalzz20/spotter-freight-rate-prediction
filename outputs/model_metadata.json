@@ -1,0 +1,24 @@
+{
+  "model": "CatBoostRegressor",
+  "features": [
+    "pickup",
+    "delivery",
+    "distance",
+    "equipment",
+    "weight",
+    "month",
+    "dayofweek",
+    "dayofmonth",
+    "dayofyear",
+    "is_weekend"
+  ],
+  "categorical_features": [
+    "pickup",
+    "delivery",
+    "equipment"
+  ],
+  "target_transform": "log1p; predictions inverse-transformed with expm1",
+  "seed": 42,
+  "iterations": 466,
+  "weight_median_full_training": 31436.5
+}
